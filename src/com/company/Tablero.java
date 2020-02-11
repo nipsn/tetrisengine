@@ -70,19 +70,28 @@ public class Tablero {
     }
 
     public void rotarPieza(){
-        int i = 0;
-        int miX,miY;
+        int miX,miY,nuevoX,nuevoY;
+        boolean puedo = true;
         int pivotX = pieza.getLista().get(1).getCoordX(); //aqui le dices que coja el segundo. le puedes poner el que quieras
         int pivotY = pieza.getLista().get(1).getCoordY();
         for(Tile aux : pieza.getLista()){
-            pozo[aux.getCoordX()][aux.getCoordY()] = new Tile(false,false, 0,aux.getCoordX(),aux.getCoordY());
             miX = aux.getCoordX();
             miY = aux.getCoordY();
 
-            aux.setCoordX(miY + pivotX - pivotY);
-            aux.setCoordY(pivotX + pivotY - miX);
+            nuevoX = miY + pivotX - pivotY;
+            nuevoY = pivotX + pivotY - miX;
 
-            pozo[aux.getCoordX()][aux.getCoordY()] = aux;
+            if(pozo[nuevoX][nuevoY].isOccupied()){
+                puedo = false;
+                break;
+            }
+            if(puedo){
+                aux.setCoordX(nuevoX);
+                aux.setCoordY(nuevoY);
+
+                pozo[miX][miY] = new Tile(false,false, 0,miX,miY);
+                pozo[aux.getCoordX()][aux.getCoordY()] = aux;
+            }
         }
     }
     public void fijarPieza(){

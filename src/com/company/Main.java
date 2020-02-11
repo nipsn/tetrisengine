@@ -14,6 +14,11 @@ public class Main {
 
         tablero.imprimirPozo();
 
+        for(int i = 0;i < 2;i++)
+            tablero.moverDcha();
+
+
+        tablero.imprimirPozo();
         tablero.rotarPieza();
         tablero.imprimirPozo();
         tablero.rotarPieza();
